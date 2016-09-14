@@ -22,7 +22,20 @@ function route(handle, urlObj, data, response) {
       }
      break;
     case '/register':
-      responseXHR(response, 'works ok.');
+      if (data) {
+        data = decodeURIComponent(data);
+        var obj = {};
+        data.split('&').forEach((ele) => {
+          var res = ele.split('=');
+          obj[res[0]] = res[1];
+        });
+        console.log(JSON.stringify(obj));
+        handle['db']['insert'](obj, function(state) {
+          responseXHR(response, state);
+        });
+      } else {
+        responseError(response, state);
+      }
       break;
     default:    
       // response.writeHead(404, {'Content-Type': 'text/plain'});

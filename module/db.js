@@ -52,7 +52,9 @@ function select(info, cb) {
 
 exports.select = select;
 
-function insert(name, password){
+function insert(info, cb){
+  var name = info.name;
+  var password = info.password;
   var sql = "INSERT INTO user VALUES(null, '"
    + name + "', '"
    + password +"')";
